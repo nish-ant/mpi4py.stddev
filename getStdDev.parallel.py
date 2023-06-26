@@ -84,7 +84,7 @@ for i in range(ntPerRank):
 
 mpi_comm.Barrier()
 
-mpi_comm.Allreduce(sumDevPerRank, sumDevAllRanks, op=MPI.SUM)
+mpi_comm.Reduce(sumDevPerRank, sumDevAllRanks, op=MPI.SUM, root=0)
 
 #- DONE!
 if mpi_rank == 0:
