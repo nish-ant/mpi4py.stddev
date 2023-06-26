@@ -72,8 +72,10 @@ for i in range(ntPerRank):
 
 mpi_comm.Barrier()
 
+avgg = np.empty(nsv)
 mpi_comm.Allreduce(sumPerRank, sumAllRanks, op=MPI.SUM)
-avgg = sumAllRanks/nt
+if mpi_rank == 0:
+    avgg = sumAllRanks/nt
 mpi_comm.Bcast([avgg, MPI.DOUBLE], root=0)
 
 #- Step 2: Get deviation from mean
